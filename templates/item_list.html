@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Item List{% endblock %}
+{% block header %}Item List{% endblock %}
+
+{% block content %}
+    <a href="{% url 'item_create' %}" class="btn btn-primary mb-3">Add New Item</a>
+    <ul class="list-group">
+        {% if items %}
+            {% for item in items %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ item.name }}</strong><br>
+                </div>
+                <div>
+                    <a href="{% url 'item_update' item.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'item_delete' item.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    <!-- <form action="{% url 'item_delete' item.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form> -->
+                </div>
+            </li>
+            {% endfor %}
+        {% else %}
+            <p>No items available. Please add some items in the admin panel.</p>
+        {% endif %}
+    </ul>
+{% endblock %}
